@@ -1,0 +1,22 @@
+@import "../../templates/consume-panel.wxss";
+.list-summary { color: #68768c; font-size: 26rpx; margin: 12rpx 0 24rpx; }
+.list-end { color: #68768c; font-size: 24rpx; text-align: center; padding: 16rpx 0 32rpx; }
+.student-balance { margin: 12rpx 0 20rpx; font-size: 26rpx; }
+.balance-total { margin-left: 16rpx; font-size: 44rpx; font-weight: 600; color: #2865da; }
+.balance-total.negative { color: #b84b35; }
+.balance-total.low-balance { color: #957017; }
+.status-tabs { display: flex; padding: 6rpx; margin-bottom: 24rpx; border-radius: 16rpx; background: #f0f3f8; }
+.status-tabs .status-tab { flex: 1; margin: 0; border-radius: 12rpx; background: transparent; color: #68768c; font-size: 28rpx; }
+.status-tabs .status-tab::after { border: none; }
+.status-tabs .status-tab.selected { background: #ffffff; color: #2865da; font-weight: 600; }
+.list-toolbar { display: flex; justify-content: flex-end; margin-bottom: 16rpx; }
+.sort-picker { background: #eaf0fa; color: #294b81; border-radius: 12rpx; padding: 16rpx 20rpx; font-size: 26rpx; }
+
+.student-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16rpx; }
+.student-heading .label { flex: 1; word-break: break-all; }
+.more-button { flex-shrink: 0; margin: -10rpx -12rpx 0 0; padding: 8rpx 12rpx; font-size: 24rpx; line-height: 1.8; background: transparent; color: #68768c; }
+.detail-link { display: block; margin: 8rpx 0 0; padding: 8rpx 0; text-align: left; background: transparent; color: #294b81; font-size: 25rpx; line-height: 1.8; }
+.add-package { margin-top: 20rpx; }
+.edit-overlay { position: fixed; inset: 0; z-index: 100; }
+.edit-mask { position: absolute; inset: 0; background: rgba(17, 29, 49, .4); }
+.edit-sheet { position: absolute; bottom: 0; width: 100%; box-sizing: border-box; max-height: 85vh; border-radius: 28rpx 28rpx 0 0; background: #fff; padding: 36rpx 32rpx; padding-bottom: calc(32rpx + env(safe-area-inset-bottom)); }

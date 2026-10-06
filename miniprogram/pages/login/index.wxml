@@ -1,0 +1,18 @@
+<view class="page">
+  <view class="title">课时工具</view>
+  <view class="subtitle">管理学员和课时，记录每一次变化</view>
+  <view wx:if="{{!identity}}" class="card">
+    <view class="label">登录</view>
+    <view class="subtitle">使用微信身份登录后，即可加入你的机构</view>
+    <button class="primary login-button" bindtap="signIn" loading="{{busy}}" disabled="{{busy}}">微信登录</button>
+  </view>
+  <view wx:else class="card">
+    <view class="label">加入机构</view>
+    <view class="subtitle">请向机构管理员获取邀请码，每个邀请码只能使用一次</view>
+    <input class="field" value="{{code}}" bindinput="onCode" maxlength="40" placeholder="输入邀请码" disabled="{{busy}}" />
+    <button class="primary" bindtap="redeem" loading="{{busy}}" disabled="{{busy}}">加入机构</button>
+    <button class="secondary" bindtap="copyAccount">复制账号标识</button>
+    <button class="secondary login-button" bindtap="signIn" disabled="{{busy}}">重新登录</button>
+  </view>
+  <view class="message">{{message}}</view>
+</view>

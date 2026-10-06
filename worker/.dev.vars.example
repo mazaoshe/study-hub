@@ -1,0 +1,4 @@
+WECHAT_APP_ID=wx2c8672ff25a93740
+WECHAT_APP_SECRET=replace-with-your-wechat-secret
+SESSION_SECRET=replace-with-a-random-secret-at-least-32-characters
+SUPER_ADMIN_OPENID=replace-after-first-login

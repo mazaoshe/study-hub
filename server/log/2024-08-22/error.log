@@ -1,1 +1,0 @@
-[github.com/KeSilent/study-hub/server]2024/08/22 - 16:12:01.492	[31merror[0m	/Volumes/MyElements/Code/Personal_Code/study-hub-github/server/middleware/operation.go:122	create operation record error:	{"error": "Error 1406: Data too long for column 'agent' at row 1"}

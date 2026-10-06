@@ -1,0 +1,27 @@
+<view class="page">
+  <view class="title">{{student.name || '学员课时'}}</view>
+  <view class="subtitle">{{student.status === 'ARCHIVED' ? '学员已归档，历史数据保留' : '每个课时包可供多门课程共享使用'}}</view>
+  <button wx:if="{{!creating && student.status === 'ACTIVE'}}" class="primary" bindtap="create" disabled="{{busy || student.status !== 'ACTIVE'}}">新增课时包</button>
+  <view wx:if="{{creating}}" class="card">
+    <view class="label">新建课时包</view>
+    <view class="label">选择共享课程</view>
+    <checkbox-group bindchange="select"><label wx:for="{{courses}}" wx:key="id" class="check-row"><checkbox value="{{item.id}}" checked="{{item.checked}}" disabled="{{busy}}" />{{item.name}}</label></checkbox-group>
+    <view wx:if="{{!courses.length}}" class="muted">请先新增课程</view><button wx:if="{{!courses.length}}" class="secondary" bindtap="courses">去课程管理</button>
+    <view class="actions"><button class="primary" bindtap="save" disabled="{{busy || !courses.length}}">创建</button><button class="secondary" bindtap="cancel" disabled="{{busy}}">取消</button></view>
+  </view>
+  <view class="message">{{message}}</view>
+  <view class="package-tabs">
+    <button class="package-tab {{packageStatus === 'ACTIVE' ? 'selected' : ''}}" data-status="ACTIVE" bindtap="switchPackages" disabled="{{busy}}">正常课时包（{{activeCount}}）</button>
+    <button class="package-tab {{packageStatus === 'ARCHIVED' ? 'selected' : ''}}" data-status="ARCHIVED" bindtap="switchPackages" disabled="{{busy}}">已归档（{{archivedCount}}）</button>
+  </view>
+  <view wx:if="{{actionLabel && packageStatus === 'ACTIVE' && activeCount > 0 && student.status === 'ACTIVE'}}" class="label">选择需要{{actionLabel}}的课时包</view>
+  <view wx:if="{{!loaded && busy}}" class="card muted">正在加载课时包…</view>
+  <view wx:if="{{loaded && !visiblePackages.length}}" class="card muted">{{packageStatus === 'ARCHIVED' ? '暂无已归档课时包' : (archivedCount ? '暂无正常课时包，可切换到已归档查看或恢复' : '还没有课时包')}}</view>
+  <view wx:for="{{visiblePackages}}" wx:key="id" class="card" data-id="{{item.id}}" bindtap="open">
+    <view class="label">{{item.name}} {{item.settled ? '· 已退学结清' : (item.status === 'ARCHIVED' ? '· 已归档' : '')}}</view>
+    <view class="package-total">剩余总课时 <text class="number {{item.paid_balance + item.gift_balance < 0 ? 'negative' : ''}}">{{item.paid_balance + item.gift_balance}}</text></view>
+    <view class="balances"><view>付费 <text class="number {{item.paid_balance < 0 ? 'negative' : ''}}">{{item.paid_balance}}</text></view><view>赠送 <text class="number">{{item.gift_balance}}</text></view></view>
+    <view class="muted">{{item.status === 'ARCHIVED' || student.status === 'ARCHIVED' ? '查看余额与历史记录 →' : '查看、充值与消课 →'}}</view>
+  </view>
+  <button wx:if="{{loaded}}" class="secondary" bindtap="withdraw" disabled="{{busy}}">办理退学结清</button>
+</view>

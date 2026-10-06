@@ -1,0 +1,24 @@
+{
+  "name": "lesson-tracker-worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --config wrangler.example.jsonc",
+    "check": "tsc --noEmit",
+    "build": "wrangler deploy --dry-run --config wrangler.example.jsonc",
+    "db:local": "wrangler d1 migrations apply DB --local --config wrangler.example.jsonc",
+    "test": "node --test tests/*.test.mjs",
+    "deploy": "node scripts/deploy.mjs"
+  },
+  "dependencies": {
+    "hono": "^4.13.11"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.0.0",
+    "esbuild": "^0.28.1",
+    "miniflare": "^5.20260926.1-alpha",
+    "typescript": "^5.0.0",
+    "wrangler": "^4.0.0"
+  }
+}

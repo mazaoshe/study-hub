@@ -1,0 +1,3 @@
+.textarea { margin-top: 24rpx; }
+.check-row { align-items: flex-start; line-height: 1.8; margin-bottom: 24rpx; }
+.card > .primary { margin-top: 24rpx; }

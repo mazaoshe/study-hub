@@ -1,0 +1,58 @@
+<view class="page">
+  <view class="title">{{kind === 'students' ? '全部学员' : '课程管理'}}</view>
+  <view class="card">
+    <view wx:if="{{kind === 'students'}}" class="status-tabs">
+      <button class="status-tab {{!archived ? 'selected' : ''}}" data-status="ACTIVE" bindtap="selectStatus" disabled="{{busy}}">正常学员</button>
+      <button class="status-tab {{archived ? 'selected' : ''}}" data-status="ARCHIVED" bindtap="selectStatus" disabled="{{busy}}">已归档</button>
+    </view>
+    <input class="field" placeholder="{{kind === 'students' ? '搜索学员姓名或手机号' : '搜索课程名称'}}" value="{{searchInput}}" focus="{{searchFocus}}" data-field="searchInput" bindinput="input" bindconfirm="search" confirm-type="search" maxlength="80" disabled="{{busy}}" />
+    <view class="actions"><button class="secondary" bindtap="search" disabled="{{busy}}">搜索</button><button class="primary" bindtap="create" disabled="{{busy}}">新增{{title}}</button></view>
+    <view wx:if="{{kind === 'courses'}}" class="switch-row"><text>显示已归档</text><switch checked="{{archived}}" bindchange="archived" disabled="{{busy}}" /></view>
+  </view>
+  <view wx:if="{{message && !editing}}" class="message">{{message}}</view>
+  <view wx:if="{{kind === 'students'}}" class="list-toolbar">
+    <text wx:if="{{archived}}" class="muted">最近归档优先 · 时间未记录的排在后面</text>
+    <picker wx:else range="{{sortLabels}}" value="{{sortIndex}}" bindchange="sort" disabled="{{busy}}"><view class="sort-picker">排序：{{sortLabels[sortIndex]}} ▾</view></picker>
+  </view>
+  <view wx:if="{{loaded}}" class="list-summary">{{total === null ? '' : '共 ' + total + (kind === 'students' ? ' 位学员' : ' 门课程') + ' · '}}已显示 {{items.length}} {{kind === 'students' ? '位' : '门'}}{{archived ? (kind === 'students' ? '（已归档）' : '（含已归档）') : '（仅正常）'}}</view>
+  <view wx:if="{{!loaded && busy}}" class="card muted">正在加载{{title}}列表…</view>
+  <view wx:if="{{loaded && !items.length}}" class="card muted">{{search ? '当前列表没有找到匹配的' + title + '，请更换关键词' : (kind === 'students' && archived ? '暂无已归档学员' : '暂无' + title + '，点击上方按钮新增')}}</view>
+  <view wx:for="{{items}}" wx:key="id" class="card">
+    <view class="student-heading">
+      <view class="label" data-id="{{item.id}}" bindtap="detail">{{item.name}} {{item.status === 'ARCHIVED' ? '· 已归档' : ''}}</view>
+      <button wx:if="{{kind === 'students'}}" class="more-button" data-id="{{item.id}}" bindtap="moreActions" disabled="{{busy}}">更多 ···</button>
+    </view>
+    <view wx:if="{{kind === 'students' && archived}}" class="muted">{{item.archivedDate ? '归档于 ' + item.archivedDate : '归档时间未记录'}}</view>
+    <view wx:if="{{kind === 'students'}}" class="student-balance">
+      <view>剩余总课时 <text class="balance-total {{item.balanceClass}}">{{item.total_balance === undefined ? '—' : item.total_balance}}</text><text class="muted"> 课时</text></view>
+      <view wx:if="{{item.package_count}}" class="muted">付费 {{item.paid_balance}} · 赠送 {{item.gift_balance}} · {{item.package_count}} 个正常课时包</view>
+      <view wx:else class="muted">暂无正常课时包</view>
+    </view>
+    <view wx:if="{{item.phone}}" class="muted">{{item.phone}}</view><view wx:if="{{item.displayRemark}}" class="muted">{{item.displayRemark}}</view>
+    <block wx:if="{{kind === 'students'}}">
+      <view wx:if="{{item.status === 'ACTIVE' && item.package_count}}" class="actions">
+        <button class="primary" data-id="{{item.id}}" data-action="consume" bindtap="operate" disabled="{{busy}}">消课</button>
+
+      </view>
+      <button wx:if="{{item.status === 'ACTIVE' && !item.package_count}}" class="secondary add-package" data-id="{{item.id}}" bindtap="addPackage" disabled="{{busy}}">新增课时包</button>
+      <button class="detail-link" data-id="{{item.id}}" bindtap="detail" disabled="{{busy}}">查看课时包与记录 →</button>
+    </block>
+    <view wx:else class="actions"><button class="secondary" data-id="{{item.id}}" bindtap="edit" disabled="{{busy}}">编辑</button><button class="secondary" data-id="{{item.id}}" bindtap="toggle" disabled="{{busy}}">{{item.status === 'ACTIVE' ? '归档' : '恢复'}}</button></view>
+  </view>
+  <button wx:if="{{hasMore}}" class="secondary" bindtap="more" disabled="{{busy}}">加载更多</button>
+  <view wx:if="{{loaded && items.length && !hasMore}}" class="list-end">已显示全部{{title}}</view>
+</view>
+
+<view wx:if="{{editing}}" class="edit-overlay">
+  <view class="edit-mask" catchtouchmove="stopTouch" bindtap="cancel"></view>
+  <scroll-view class="edit-sheet" scroll-y="true">
+    <view class="label">{{editId ? '编辑' : '新增'}}{{title}}</view>
+    <input class="field" placeholder="{{title}}名称" focus="{{editing}}" cursor-spacing="40" value="{{name}}" data-field="name" bindinput="input" maxlength="80" disabled="{{busy}}" />
+    <input wx:if="{{kind === 'students'}}" class="field" placeholder="联系电话（选填）" value="{{phone}}" data-field="phone" bindinput="input" maxlength="40" disabled="{{busy}}" />
+    <textarea fixed="true" cursor-spacing="40" class="field textarea" placeholder="备注（选填）" value="{{remark}}" data-field="remark" bindinput="input" maxlength="{{remarkLimit}}" disabled="{{busy}}" />
+    <view wx:if="{{message}}" class="message">{{message}}</view>
+    <view class="actions"><button class="primary" bindtap="save" disabled="{{busy}}" loading="{{busy}}">保存</button><button class="secondary" bindtap="cancel" disabled="{{busy}}">取消</button></view>
+  </scroll-view>
+</view>
+
+<include src="../../templates/consume-panel.wxml" />

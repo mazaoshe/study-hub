@@ -1,0 +1,29 @@
+<view class="page">
+  <view class="title">机构管理</view>
+  <view class="subtitle">创建机构，邀请管理员开始使用</view>
+  <view class="card">
+    <view class="label">创建机构</view>
+    <input class="field" value="{{name}}" bindinput="onName" maxlength="80" placeholder="机构名称" disabled="{{busy}}" />
+    <button class="primary" bindtap="create" disabled="{{busy}}" loading="{{busy}}">创建机构</button>
+  </view>
+  <view class="card">
+    <view class="label">机构列表</view>
+    <view wx:if="{{!organizations.length}}" class="muted">还没有机构，先创建第一个机构吧</view>
+    <view wx:for="{{organizations}}" wx:key="id" class="row">
+      <view>{{item.name}} · {{item.status === 'ACTIVE' ? '正常' : '已停用'}}</view>
+      <view class="actions">
+        <button class="secondary" data-id="{{item.id}}" bindtap="invite" disabled="{{busy || item.status !== 'ACTIVE'}}">邀请管理员</button>
+        <button class="secondary" data-id="{{item.id}}" bindtap="rename" disabled="{{busy}}">改名称</button>
+        <button class="secondary" data-id="{{item.id}}" bindtap="toggle" disabled="{{busy}}">{{item.status === 'ACTIVE' ? '停用' : '启用'}}</button>
+      </view>
+      <view wx:if="{{inviteCode && inviteOrgId === item.id}}">
+        <view class="label">本机构的一次性邀请码</view><view class="code">{{inviteCode}}</view>
+        <view class="muted">有效期 7 天，每个邀请码限一人使用；再次生成不会撤销之前的有效邀请码</view>
+        <button class="secondary" bindtap="copyInvite">复制邀请码</button>
+      </view>
+    </view>
+    <button wx:if="{{hasMore}}" class="secondary" bindtap="loadMore" disabled="{{busy}}">加载更多</button>
+  </view>
+  <view class="message">{{message}}</view>
+  <button class="secondary" bindtap="logout" disabled="{{busy}}">退出登录</button>
+</view>

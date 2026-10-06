@@ -1,0 +1,6 @@
+.package-tabs { display: flex; gap: 8rpx; background: #eaf0fa; padding: 6rpx; margin: 24rpx 0; border-radius: 16rpx; }
+.package-tab { flex: 1; margin: 0; padding: 8rpx; font-size: 26rpx; line-height: 1.8; background: transparent; color: #68768c; }
+.package-tab.selected { background: #fff; color: #2865da; font-weight: 600; }
+.package-total { font-size: 28rpx; padding-bottom: 12rpx; }
+.balances { color: #68768c; font-size: 26rpx; }
+.balances .number { font-size: 30rpx; }

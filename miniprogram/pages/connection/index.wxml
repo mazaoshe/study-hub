@@ -1,0 +1,22 @@
+<view class="page">
+  <view class="title">课时工具</view>
+  <view class="subtitle">第一步：确认服务与数据连接正常</view>
+  <view class="card">
+    <view class="label">测试内容</view>
+    <input value="{{content}}" bindinput="onInput" maxlength="200" placeholder="输入一条测试内容" disabled="{{busy}}" />
+    <button class="primary" bindtap="testConnection" disabled="{{busy}}">测试连接</button>
+    <view class="actions">
+      <button bindtap="writeEntry" disabled="{{busy}}">写入数据</button>
+      <button bindtap="readEntries" disabled="{{busy}}">读取数据</button>
+    </view>
+    <view class="status">{{message}}</view>
+  </view>
+  <view class="card">
+    <view class="label">最近测试记录</view>
+    <view wx:if="{{!entries.length}}" class="empty">写入数据后，点击“读取数据”查看结果</view>
+    <view wx:for="{{entries}}" wx:key="id" class="entry">
+      <view>{{item.content}}</view>
+      <view class="date">#{{item.id}} · {{item.created_at}}</view>
+    </view>
+  </view>
+</view>

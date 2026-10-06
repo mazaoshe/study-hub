@@ -1,0 +1,22 @@
+<view wx:if="{{consumeOpen}}" class="consume-overlay">
+  <view class="consume-mask" bindtap="closeConsume" catchtouchmove="stopTouch"></view>
+  <scroll-view class="consume-sheet" scroll-y="true">
+    <view class="sheet-heading"><view class="label">{{consumePackage.student_name || consumeStudentName}} · 消课</view><text class="sheet-close" bindtap="closeConsume">关闭</text></view>
+    <picker wx:if="{{consumePackages.length > 1}}" range="{{consumePackageNames}}" value="{{consumePackageIndex + 1}}" bindchange="chooseConsumePackage" disabled="{{consumeBusy}}"><view class="field">课时包：{{consumePackageIndex < 0 ? '请选择课时包' : consumePackages[consumePackageIndex].name}} ▾</view></picker>
+    <view wx:if="{{consumeBusy && !consumePackage}}" class="muted">正在获取课时包…</view>
+    <view wx:if="{{consumePackage}}">
+      <view class="muted">{{consumePackage.name}} · 剩余 {{consumePackage.paid_balance + consumePackage.gift_balance}} 课时</view>
+      <view class="muted">付费 {{consumePackage.paid_balance}} · 赠送 {{consumePackage.gift_balance}}，优先扣赠送</view>
+      <view wx:if="{{consumeCourses.length === 1}}" class="field">课程：{{consumeCourses[0].name}}</view>
+      <picker wx:if="{{consumeCourses.length > 1}}" range="{{consumeCourses}}" range-key="name" value="{{consumeCourseIndex}}" bindchange="chooseConsumeCourse" disabled="{{consumeBusy}}"><view class="field">课程：{{consumeCourses[consumeCourseIndex].name}} ▾</view></picker>
+      <view class="label">消课课时</view>
+      <view class="hour-options"><button wx:for="{{[1, 2, 3]}}" wx:key="*this" class="{{consumeHours == item ? 'primary' : 'secondary'}}" data-hours="{{item}}" bindtap="quickConsumeHours" disabled="{{consumeBusy}}">{{item}} 课时</button></view>
+      <input class="field" type="number" value="{{consumeHours}}" placeholder="课时数（正整数）" data-field="consumeHours" bindinput="consumeInput" disabled="{{consumeBusy}}" />
+      <input class="field" value="{{consumeRemark}}" placeholder="备注（选填）" maxlength="500" data-field="consumeRemark" bindinput="consumeInput" disabled="{{consumeBusy}}" />
+    </view>
+    <view wx:if="{{consumeMessage}}" class="message">{{consumeMessage}}</view>
+    <button wx:if="{{!consumePackage && consumePackageIndex >= 0 && !consumeBusy}}" class="secondary" bindtap="retryConsumePackage">重试加载课时包</button>
+    <button class="primary" bindtap="submitConsume" disabled="{{consumeBusy || !consumePackage || !consumeCourses.length}}" loading="{{consumeBusy}}">确认消课</button>
+    <view class="muted sheet-note">完成后留在当前列表，继续处理下一位学员</view>
+  </scroll-view>
+</view>

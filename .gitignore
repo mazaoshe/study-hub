@@ -1,0 +1,18 @@
+node_modules/
+.wrangler/
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+.env
+.env.*
+!.env.example
+project.private.config.json
+miniprogram/config.local.js
+worker/wrangler.jsonc
+.DS_Store
+backups/
+__pycache__/
+
+# Local ChatGPT project context and synced references
+/AGENTS.md
+/sources/

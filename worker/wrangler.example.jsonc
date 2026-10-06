@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "lesson-tracker-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-30",
+  "vars": { "APP_ENV": "development", "WECHAT_APP_ID": "wx2c8672ff25a93740" },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "lesson-tracker-test",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "../migrations"
+    }
+  ]
+}

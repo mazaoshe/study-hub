@@ -1,0 +1,31 @@
+<view class="page">
+  <view class="title">管理</view>
+  <view class="subtitle">{{identity.organization.name || '我的机构'}} · 基础操作</view>
+  <view class="card">
+    <view class="label">课时管理</view>
+    <view class="actions"><button class="secondary" bindtap="courses" disabled="{{busy}}">课程管理</button><button class="secondary" bindtap="records" disabled="{{busy}}">课时流水</button></view>
+    <view class="muted">首次使用：新增课程 → 在「学员」页新增学员与课时包</view>
+  </view>
+  <view class="card">
+    <view class="label">导出 CSV</view><view class="muted">导出本机构全部数据，包含已归档记录</view>
+    <view class="actions"><button class="secondary" data-kind="students" bindtap="exportData" disabled="{{busy}}">学员</button><button class="secondary" data-kind="packages" bindtap="exportData" disabled="{{busy}}">课时包</button><button class="secondary" data-kind="records" bindtap="exportData" disabled="{{busy}}">流水</button></view>
+    <view class="actions"><button class="secondary" data-kind="legacy-records" bindtap="exportData" disabled="{{busy}}">历史记录</button></view>
+  </view>
+  <view class="card">
+    <view class="label">管理员</view>
+    <view class="muted">已加入 {{admins.length}} 位管理员</view>
+    <view wx:for="{{admins}}" wx:key="id" class="row">
+      管理员 {{index + 1}} {{item.id === identity.user.id ? '（我）' : ''}} · {{item.status === 'ACTIVE' ? '正常' : '已停用'}}
+    </view>
+    <button class="primary" bindtap="invite" disabled="{{busy}}" loading="{{busy}}">邀请管理员</button>
+  </view>
+  <view wx:if="{{inviteCode}}" class="card">
+    <view class="label">一次性邀请码</view>
+    <view class="code">{{inviteCode}}</view>
+    <view class="muted">有效期 7 天，请发给要加入本机构的管理员</view>
+    <button class="secondary" bindtap="copyInvite">复制邀请码</button>
+  </view>
+  <view class="message">{{message}}</view>
+  <button wx:if="{{exportPath}}" class="secondary" bindtap="shareExport" disabled="{{busy}}">分享文件 · {{exportName}}</button>
+  <button class="secondary" bindtap="logout" disabled="{{busy}}">退出登录</button>
+</view>

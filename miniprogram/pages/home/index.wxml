@@ -1,0 +1,22 @@
+<view class="page">
+  <view class="subtitle organization">{{identity.organization.name || '我的机构'}}</view>
+  <view class="title">学员课时</view>
+  <view class="subtitle">搜索学员，查看余额、充值或消课</view>
+  <view class="search-box"><input class="search-input" placeholder="搜索学员姓名或手机号" value="{{searchInput}}" focus="{{searchFocus}}" selection-start="0" selection-end="{{searchInput.length}}" bindinput="onSearchInput" disabled="{{!!archivingId}}" bindconfirm="search" confirm-type="search" maxlength="80" /><text wx:if="{{searchInput}}" class="search-clear" bindtap="clearSearch">清空</text><button class="search-button" bindtap="search" disabled="{{!!archivingId}}">搜索</button></view>
+  <view wx:if="{{!keyword}}" class="overview"><view class="overview-label">需要跟进</view><view><text class="overview-number">{{loaded ? count : '—'}}</text><text class="overview-unit">位学员</text></view><view class="overview-note">正常课时包的付费与赠送总余额 ≤ 3 课时</view></view>
+  <view class="section-heading"><text>{{keyword ? '搜索结果（' + (loaded ? count : '…') + '）' : '待跟进学员'}}</text><text class="muted" bindtap="refresh">{{busy ? '加载中…' : '刷新'}}</text></view>
+  <view wx:if="{{message}}" class="message">{{message}}</view>
+  <view wx:if="{{!loaded && busy}}" class="card muted">正在获取学员课时…</view>
+  <view wx:if="{{loaded && !students.length}}" class="card empty"><view class="empty-title">{{keyword ? '没有找到匹配的学员' : '暂无需要跟进的学员'}}</view><view class="muted">{{keyword ? '试试姓名中的其他字或手机号' : '学员课时充足时不会出现在这里'}}</view></view>
+  <view wx:for="{{students}}" wx:key="id" class="card student-card" data-id="{{item.id}}" bindtap="open">
+    <view class="student-heading"><text class="student-name">{{item.name}}</text><text class="badge {{item.balanceClass}}">{{item.balanceLabel}}</text></view>
+    <view class="remaining"><text class="muted">剩余总课时</text><text class="remaining-number {{item.balanceClass}}">{{item.total_balance}}</text><text class="muted">课时</text></view>
+    <view class="muted">付费 {{item.paid_balance}} · 赠送 {{item.gift_balance}} · {{item.package_count}} 个课时包</view>
+    <view wx:if="{{item.phone}}" class="muted">{{item.phone}}</view>
+    <view class="actions daily-actions"><button wx:if="{{item.package_count}}" class="primary" data-id="{{item.id}}" data-action="consume" catchtap="operate" disabled="{{busy || archivingId}}">消课</button><button class="secondary more-operation" data-id="{{item.id}}" catchtap="moreActions" disabled="{{busy || archivingId}}">更多 ···</button></view>
+    <view class="detail-link">查看学员与课时包 →</view>
+  </view>
+  <button wx:if="{{hasMore}}" class="secondary" bindtap="more" disabled="{{busy}}">加载更多</button>
+</view>
+
+<include src="../../templates/consume-panel.wxml" />

@@ -1,0 +1,47 @@
+{
+  "pages": [
+    "pages/login/index",
+    "pages/home/index",
+    "pages/organizations/index",
+    "pages/connection/index",
+    "pages/catalog/index",
+    "pages/student/index",
+    "pages/package/index",
+    "pages/records/index",
+    "pages/manage/index",
+    "pages/students/index",
+    "pages/withdraw/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "课时工具",
+    "navigationBarBackgroundColor": "#f5f7fb",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f5f7fb"
+  },
+  "tabBar": {
+    "color": "#68768c",
+    "selectedColor": "#2865da",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页",
+        "iconPath": "assets/tabbar/home.png",
+        "selectedIconPath": "assets/tabbar/home-selected.png"
+      },
+      {
+        "pagePath": "pages/students/index",
+        "text": "学员",
+        "iconPath": "assets/tabbar/students.png",
+        "selectedIconPath": "assets/tabbar/students-selected.png"
+      },
+      {
+        "pagePath": "pages/manage/index",
+        "text": "管理",
+        "iconPath": "assets/tabbar/manage.png",
+        "selectedIconPath": "assets/tabbar/manage-selected.png"
+      }
+    ]
+  }
+}

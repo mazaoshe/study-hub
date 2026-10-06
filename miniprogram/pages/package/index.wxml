@@ -1,0 +1,37 @@
+<view class="page">
+  <view class="title">{{package.name || '课时包'}}</view><view class="subtitle">{{package.student_name}} {{package.settled ? '· 已退学结清' : (package.status === 'ARCHIVED' ? '· 已归档' : '')}}</view>
+  <view class="card">
+    <view class="balances"><view>付费余额<view class="number {{package.paid_balance < 0 ? 'negative' : ''}}">{{package.paid_balance}}</view></view><view>赠送余额<view class="number">{{package.gift_balance}}</view></view></view>
+    <view wx:if="{{package.paid_balance < 0}}" class="message">付费课时已欠费 {{0 - package.paid_balance}} 课时</view>
+    <view class="muted">优先扣赠送课时；付费余额可为负数</view>
+
+  </view>
+  <view wx:if="{{mode === 'recharge' || mode === 'consume'}}" class="card">
+    <view class="label">{{mode === 'recharge' ? '充值' : '消课'}}</view>
+    <block wx:if="{{mode === 'recharge'}}"><input class="field" type="number" value="{{paid}}" placeholder="付费课时（不填为 0）" data-field="paid" bindinput="input" disabled="{{busy}}" /><input class="field" type="number" value="{{gift}}" placeholder="赠送课时（不填为 0）" data-field="gift" bindinput="input" disabled="{{busy}}" /></block>
+    <block wx:else><view wx:if="{{activeCourses.length === 1}}" class="field">课程：{{activeCourses[0].name}}</view><picker wx:if="{{activeCourses.length > 1}}" range="{{activeCourses}}" range-key="name" value="{{courseIndex}}" bindchange="course" disabled="{{busy}}"><view class="field">课程：{{activeCourses[courseIndex].name || '请选择'}}</view></picker><view class="hour-options"><button wx:for="{{[1, 2, 3]}}" wx:key="*this" class="{{hours == item ? 'primary' : 'secondary'}}" data-hours="{{item}}" bindtap="quickHours" disabled="{{busy}}">{{item}} 课时</button></view><input class="field" type="number" value="{{hours}}" placeholder="消课课时（正整数）" data-field="hours" bindinput="input" disabled="{{busy}}" /></block>
+    <input class="field" value="{{remark}}" placeholder="备注（选填）" maxlength="500" data-field="remark" bindinput="input" disabled="{{busy}}" />
+    <view class="actions"><button class="primary" bindtap="submit" disabled="{{busy}}" loading="{{busy}}">{{mode === 'recharge' ? '确认充值' : '确认消课'}}</button><button class="secondary" bindtap="cancel" disabled="{{busy}}">取消</button></view>
+  </view>
+  <view class="card">
+    <view wx:if="{{package.settled}}" class="muted">课时已结清，重新报名请新建课时包。</view>
+    <view class="row"><text>共享课程：</text><text wx:for="{{package.courses}}" wx:key="id">{{index ? ' / ' : ''}}{{item.name}}{{item.status === 'ARCHIVED' ? '（已归档）' : ''}}</text></view>
+    <view wx:if="{{mode !== 'recharge' && mode !== 'consume'}}" class="actions"><button class="primary" data-mode="consume" bindtap="mode" disabled="{{busy || package.status !== 'ACTIVE' || package.student_status !== 'ACTIVE' || !activeCourses.length}}">消课</button><button class="secondary" data-mode="recharge" bindtap="mode" disabled="{{busy || package.status !== 'ACTIVE' || package.student_status !== 'ACTIVE'}}">充值</button></view>
+    <view wx:if="{{!package.settled}}" class="actions"><button class="secondary" bindtap="edit" disabled="{{busy}}">编辑课时包</button><button class="secondary" bindtap="toggle" disabled="{{busy}}">{{package.status === 'ACTIVE' ? '归档' : '恢复'}}</button></view>
+  </view>
+  <view wx:if="{{mode === 'edit'}}" class="card">
+    <view class="label">编辑课时包</view><input class="field" value="{{name}}" data-field="name" bindinput="input" maxlength="80" disabled="{{busy}}" />
+    <view class="muted">调整课程不改变已有余额和流水</view>
+    <checkbox-group bindchange="select"><label wx:for="{{editCourses}}" wx:key="id" class="check-row"><checkbox value="{{item.id}}" checked="{{item.checked}}" disabled="{{busy}}" />{{item.name}}</label></checkbox-group>
+    <view class="actions"><button class="primary" bindtap="save" disabled="{{busy}}">保存</button><button class="secondary" bindtap="cancel" disabled="{{busy}}">取消</button></view>
+  </view>
+  <view class="message">{{message}}</view><view class="label">{{package.legacy_opening ? '当前系统课时流水' : '课时流水'}}</view>
+  <button wx:if="{{package.legacy_opening}}" class="secondary" bindtap="history" disabled="{{busy}}">查看导入前的历史记录</button>
+  <view wx:if="{{!records.length && !busy && !message}}" class="card muted">{{package.legacy_opening ? '当前系统尚无新增流水，导入前的记录请点击上方查看' : '暂无课时流水'}}</view>
+  <view wx:for="{{records}}" wx:key="id" class="card">
+    <view class="label">{{item.typeName}} {{item.course_name || ''}} {{item.reversed ? '· 已冲正' : ''}}</view>
+    <view>付费 {{item.paidText}} · 赠送 {{item.giftText}}</view><view class="muted">{{item.time}}</view><view wx:if="{{item.remark}}" class="muted">{{item.remark}}</view>
+    <view wx:if="{{item.type === 'REVERSAL'}}" class="muted">原流水：{{item.original_record_id}}</view>
+    <button wx:if="{{(item.type === 'RECHARGE' || item.type === 'CONSUME') && !item.reversed && !item.settled}}" class="secondary" data-id="{{item.id}}" bindtap="reverse" disabled="{{busy}}">冲正</button>
+  </view><button wx:if="{{hasMore}}" class="secondary" bindtap="more" disabled="{{busy}}">加载更多</button>
+</view>

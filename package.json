@@ -1,0 +1,16 @@
+{
+  "name": "lesson-tracker",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "worker"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w worker",
+    "check": "npm run check -w worker",
+    "db:local": "npm run db:local -w worker",
+    "build": "npm run build -w worker",
+    "test": "npm run test -w worker",
+    "deploy": "npm run deploy -w worker"
+  }
+}

@@ -1,0 +1,27 @@
+<view class="page">
+  <view class="title">退学结清</view>
+  <view wx:if="{{done}}" class="card">
+    <view class="label">{{preview.student.name}} · 已退学结清</view>
+    <view class="muted">剩余课时已清零，学员已归档。结清记录可在课时流水中查看。</view>
+    <button class="primary" bindtap="back">完成，返回</button>
+  </view>
+  <block wx:else>
+    <view class="subtitle">确认已在线下退费后，清空剩余课时并归档。此操作不会发起实际付款。</view>
+    <view wx:if="{{preview}}" class="card">
+      <view class="label">{{preview.student.name}}</view>
+      <view class="muted">以下包含正常及已归档的未结清课时包</view>
+      <view wx:for="{{preview.packages}}" wx:key="id" class="row">
+        <view>{{item.name}} {{item.status === 'ARCHIVED' ? '· 已归档' : ''}}</view>
+        <view class="muted">待清零：付费 {{item.paid_balance}} · 赠送 {{item.gift_balance}} 课时</view>
+      </view>
+      <view wx:if="{{!preview.packages.length}}" class="muted">暂无未结清课时包，将记录退学并归档学员。</view>
+      <view wx:if="{{preview.blocked_reason}}" class="message">{{preview.blocked_reason}}</view>
+      <view wx:if="{{retrying}}" class="message">上次提交结果尚未确认。重试会核对同一笔结清，不会重复扣减。</view>
+      <textarea class="field textarea" placeholder="退费说明（选填，可填写金额及方式）" value="{{remark}}" bindinput="input" maxlength="500" disabled="{{busy || retrying}}" />
+      <checkbox-group bindchange="acknowledge"><label class="check-row"><checkbox value="confirmed" checked="{{confirmed}}" disabled="{{busy || preview.blocked_reason}}" />我已完成线下退费，确认清空上述剩余课时</label></checkbox-group>
+      <button class="primary" bindtap="submit" loading="{{busy}}" disabled="{{busy || !confirmed || preview.blocked_reason}}">{{retrying ? '核对并重试上次结清' : '确认退学并清零'}}</button>
+    </view>
+    <view wx:if="{{message}}" class="message">{{message}}</view>
+    <button wx:if="{{!retrying}}" class="secondary" bindtap="reload" disabled="{{busy}}">重新核对</button>
+  </block>
+</view>

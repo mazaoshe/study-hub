@@ -1,0 +1,10 @@
+.consume-overlay { position: fixed; top: 0; bottom: 0; left: 0; right: 0; z-index: 100; }
+.consume-mask { position: absolute; top: 0; bottom: 0; left: 0; right: 0; background: rgba(23, 36, 59, .45); }
+.consume-sheet { position: absolute; bottom: 0; left: 0; right: 0; box-sizing: border-box; height: 78vh; padding: 32rpx 32rpx calc(24rpx + env(safe-area-inset-bottom)); background: #fff; border-radius: 28rpx 28rpx 0 0; }
+.sheet-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 24rpx; }
+.sheet-close { color: #68768c; font-size: 26rpx; padding: 0 0 24rpx 24rpx; flex-shrink: 0; }
+.consume-sheet .field { margin-top: 20rpx; }
+.consume-sheet .label { margin-top: 20rpx; margin-bottom: 16rpx; }
+.hour-options { display: flex; gap: 16rpx; }
+.hour-options button { flex: 1; margin: 0; }
+.sheet-note { text-align: center; font-size: 24rpx; padding-bottom: 12rpx; }

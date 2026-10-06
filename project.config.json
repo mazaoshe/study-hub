@@ -1,0 +1,11 @@
+{
+  "appid": "wx2c8672ff25a93740",
+  "projectname": "lesson-tracker",
+  "compileType": "miniprogram",
+  "miniprogramRoot": "miniprogram/",
+  "setting": {
+    "es6": true,
+    "minified": true
+  },
+  "isGameTourist": false
+}
