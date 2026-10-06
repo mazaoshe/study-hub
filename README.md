@@ -6,6 +6,16 @@
 
 第一版包含微信登录、机构和邀请、课程、学员、共享课时包、充值、消课、冲正、归档与 CSV 导出。两个真实微信账号登录及邀请码流程已通过用户验证。应用通过 72 项自动测试，新增手机业务流程待验收，见 [docs/acceptance.md](docs/acceptance.md)。
 
+## 界面截图
+
+| 首页 | 学员列表 | 消课 |
+| --- | --- | --- |
+| ![课时工具首页](docs/images/screenshots/home.png) | ![学员列表](docs/images/screenshots/students.png) | ![消课表单](docs/images/screenshots/consume.png) |
+
+| 管理 | 课程管理 | |
+| --- | --- | --- |
+| ![管理页面](docs/images/screenshots/manage.png) | ![课程管理](docs/images/screenshots/courses.png) | |
+
 ## 本地启动
 
 ```sh
