@@ -1,6 +1,6 @@
 # V1 API
 
-Base URL：`https://lession-api.yppnote.com`
+Base URL：部署者自己的 Worker HTTPS 地址，例如 `https://api.example.com`。本文不绑定任何维护者域名。
 
 JSON 请求和响应。认证接口要求 `Authorization: Bearer <token>`。
 
@@ -61,7 +61,7 @@ role 为 `SUPER_ADMIN`、`ORG_ADMIN` 或未绑定用户的 `null`。机构管理
 | 502 | 微信登录接口错误 |
 | 503 | 缺少登录配置 |
 
-`/health` 是服务连通检查，不访问数据库。`/test` 只在 development / validation 开放；正式阶段关闭该测试接口。
+`/health` 是服务连通检查，不访问数据库。`/test` 只在 `development` / `validation` 开放；正式阶段关闭该测试接口。生产部署和微信合法域名配置见 [部署文档](deployment.md)。
 
 ## 课程、学员与课时包
 
