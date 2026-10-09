@@ -1,5 +1,6 @@
 <view class="page">
-  <view class="title">课时工具</view>
+  <image class="brand-logo" src="/assets/chenji-logo.png" mode="aspectFit" />
+  <view class="title">尘迹</view>
   <view class="subtitle">管理学员和课时，记录每一次变化</view>
   <view wx:if="{{!identity}}" class="card">
     <view class="label">登录</view>

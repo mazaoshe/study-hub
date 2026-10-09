@@ -13,7 +13,7 @@
     "pages/withdraw/index"
   ],
   "window": {
-    "navigationBarTitleText": "课时工具",
+    "navigationBarTitleText": "尘迹",
     "navigationBarBackgroundColor": "#f5f7fb",
     "navigationBarTextStyle": "black",
     "backgroundColor": "#f5f7fb"

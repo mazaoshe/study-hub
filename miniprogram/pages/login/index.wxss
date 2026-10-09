@@ -1,1 +1,8 @@
 /* pages/login/index.wxss */
+.brand-logo {
+  display: block;
+  width: 220rpx;
+  height: 220rpx;
+  margin: 48rpx auto 24rpx;
+  border-radius: 32rpx;
+}

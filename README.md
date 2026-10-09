@@ -1,4 +1,6 @@
-# 课时工具
+# 尘迹
+
+![尘迹 Logo](docs/images/chenji-logo-readme.png)
 
 面向培训机构的微信原生小程序课时管理工具。前端位于 `miniprogram/`，后端是 TypeScript、Hono、Cloudflare Workers 与 D1；数据通过不可变课时流水记录充值、消课和冲正。
 
