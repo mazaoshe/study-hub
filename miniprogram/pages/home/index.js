@@ -7,11 +7,11 @@ const consumption = createConsumePanel(async function () {
 });
 Page({
   ...consumption.methods,
-  data: { identity: null, students: [], count: 0, page: 1, hasMore: false, busy: false, message: '', loaded: false, searchInput: '', keyword: '',
+  data: { themeClass: (typeof wx.getStorageSync === 'function' && wx.getStorageSync('theme') === 'classic' ? 'theme-classic' : ''), identity: null, students: [], count: 0, page: 1, hasMore: false, busy: false, message: '', loaded: false, searchInput: '', keyword: '',
     archivingId: '',
     ...consumption.data, searchFocus: false },
   onLoad() { this.requestId = 0; },
-  async onShow() {
+  async onShow() { this.setData({ themeClass: (typeof wx.getStorageSync === 'function' && wx.getStorageSync('theme') === 'classic' ? 'theme-classic' : '') });
     clearTimeout(this.searchTimer);
     this.setData({ busy: true });
     try {

@@ -1,4 +1,4 @@
-<view class="page">
+<view class="page {{themeClass}}">
   <view class="title">{{student.name || '学员课时'}}</view>
   <view class="subtitle">{{student.status === 'ARCHIVED' ? '学员已归档，历史数据保留' : '每个课时包可供多门课程共享使用'}}</view>
   <button wx:if="{{!creating && student.status === 'ACTIVE'}}" class="primary" bindtap="create" disabled="{{busy || student.status !== 'ACTIVE'}}">新增课时包</button>

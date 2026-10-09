@@ -2,8 +2,8 @@ const { request } = require('../../services/api');
 const { enter, handleError } = require('../../services/auth');
 
 Page({
-  data: { organizations: [], page: 1, hasMore: false, name: '', busy: false, message: '', inviteCode: '', inviteOrg: '', inviteOrgId: '' },
-  onShow() {
+  data: { themeClass: (typeof wx.getStorageSync === 'function' && wx.getStorageSync('theme') === 'classic' ? 'theme-classic' : ''), organizations: [], page: 1, hasMore: false, name: '', busy: false, message: '', inviteCode: '', inviteOrg: '', inviteOrgId: '' },
+  onShow() { this.setData({ themeClass: (typeof wx.getStorageSync === 'function' && wx.getStorageSync('theme') === 'classic' ? 'theme-classic' : '') });
     this.run(async () => {
       const identity = await request('/me');
       if (identity.role !== 'SUPER_ADMIN') { enter(identity); return; }

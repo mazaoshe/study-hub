@@ -1,6 +1,6 @@
 @import "../../templates/consume-panel.wxss";
 .organization { margin-bottom: 12rpx; }
-.overview { border-radius: 24rpx; padding: 32rpx; background: #2865da; color: #fff; margin-bottom: 36rpx; }
+.overview { border-radius: 24rpx; padding: 32rpx; background: #a9322b; color: #fffdf8; margin-bottom: 36rpx; }
 .overview-label { font-size: 26rpx; opacity: .85; }
 .overview-number { font-size: 72rpx; font-weight: 600; line-height: 1.5; }
 .overview-unit { font-size: 26rpx; margin-left: 16rpx; }
@@ -9,25 +9,39 @@
 .section-heading { font-size: 30rpx; font-weight: 600; margin-bottom: 24rpx; }
 .student-name { font-size: 32rpx; font-weight: 600; word-break: break-all; flex: 1; }
 .badge { border-radius: 10rpx; padding: 8rpx 16rpx; font-size: 22rpx; white-space: nowrap; }
-.badge.urgent { color: #ad4930; background: #fff0ea; }
-.badge.soon { color: #957017; background: #fff7df; }
+.badge.urgent { color: #9b332b; background: #f5e4de; }
+.badge.soon { color: #916b1d; background: #f7eed0; }
 .remaining { display: flex; align-items: baseline; gap: 12rpx; margin: 24rpx 0 12rpx; }
 .remaining-number { font-size: 52rpx; font-weight: 600; }
-.remaining-number.urgent { color: #ad4930; }
-.remaining-number.soon { color: #2865da; }
-.detail-link { margin-top: 24rpx; font-size: 26rpx; color: #2865da; }
+.remaining-number.urgent { color: #9b332b; }
+.remaining-number.soon { color: #a9322b; }
+.detail-link { margin-top: 24rpx; font-size: 26rpx; color: #a9322b; }
 .card-footer { display: flex; align-items: center; justify-content: space-between; gap: 16rpx; margin-top: 24rpx; }
 .card-footer .detail-link { margin-top: 0; }
-.archive-button { flex-shrink: 0; margin: 0; padding: 8rpx 24rpx; font-size: 24rpx; line-height: 1.8; background: #f0f3f8; color: #68768c; }
+.archive-button { flex-shrink: 0; margin: 0; padding: 8rpx 24rpx; font-size: 24rpx; line-height: 1.8; background: #eee7dd; color: #766e67; }
 .empty { padding: 48rpx 32rpx; text-align: center; }
 .empty-title { font-size: 30rpx; margin-bottom: 16rpx; }
 
-.search-box { display: flex; align-items: center; gap: 12rpx; background: #fff; border-radius: 16rpx; padding: 12rpx 16rpx; margin-bottom: 28rpx; }
+.search-box { display: flex; align-items: center; gap: 12rpx; background: #fffdf8; border-radius: 16rpx; padding: 12rpx 16rpx; margin-bottom: 28rpx; }
 .search-input { flex: 1; min-width: 0; font-size: 26rpx; padding: 16rpx 0; }
-.search-clear { color: #68768c; font-size: 24rpx; padding: 12rpx; }
-.search-button { background: #eaf0fa; color: #294b81; padding: 0 20rpx; font-size: 24rpx; margin: 0; }
-.badge.normal { background: #eaf5ef; color: #31784e; }
-.remaining-number.normal { color: #2865da; }
+.search-clear { color: #766e67; font-size: 24rpx; padding: 12rpx; }
+.search-button { background: #eee4d8; color: #74433b; padding: 0 20rpx; font-size: 24rpx; margin: 0; }
+.badge.normal { background: #e7f0e8; color: #39704c; }
+.remaining-number.normal { color: #a9322b; }
 
 
 .daily-actions .more-operation { flex: 0 0 160rpx; min-width: 0; }
+
+/* 经典蓝主题覆盖 */
+.page.theme-classic .overview { border-radius: 24rpx; padding: 32rpx; background: #2865da; color: #ffffff; margin-bottom: 36rpx; }
+.page.theme-classic .badge.urgent { color: #b84b35; background: #fff0ea; }
+.page.theme-classic .badge.soon { color: #957017; background: #fff7df; }
+.page.theme-classic .remaining-number.urgent { color: #b84b35; }
+.page.theme-classic .remaining-number.soon { color: #2865da; }
+.page.theme-classic .detail-link { margin-top: 24rpx; font-size: 26rpx; color: #2865da; }
+.page.theme-classic .archive-button { flex-shrink: 0; margin: 0; padding: 8rpx 24rpx; font-size: 24rpx; line-height: 1.8; background: #f0f3f8; color: #68768c; }
+.page.theme-classic .search-box { display: flex; align-items: center; gap: 12rpx; background: #ffffff; border-radius: 16rpx; padding: 12rpx 16rpx; margin-bottom: 28rpx; }
+.page.theme-classic .search-clear { color: #68768c; font-size: 24rpx; padding: 12rpx; }
+.page.theme-classic .search-button { background: #eaf0fa; color: #294b81; padding: 0 20rpx; font-size: 24rpx; margin: 0; }
+.page.theme-classic .badge.normal { background: #eaf5ef; color: #31784e; }
+.page.theme-classic .remaining-number.normal { color: #2865da; }

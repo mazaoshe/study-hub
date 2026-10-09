@@ -1,7 +1,7 @@
 const { request } = require('../../services/api');
 
 Page({
-  data: { content: '课时工具连接测试', busy: false, message: '等待测试', entries: [] },
+  data: { themeClass: (typeof wx.getStorageSync === 'function' && wx.getStorageSync('theme') === 'classic' ? 'theme-classic' : ''), content: '课时工具连接测试', busy: false, message: '等待测试', entries: [] },
   onInput(event) { this.setData({ content: event.detail.value }); },
   async run(action) {
     if (this.data.busy) return;

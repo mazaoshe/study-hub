@@ -1,4 +1,4 @@
-<view class="page">
+<view class="page {{themeClass}}">
   <image class="brand-logo" src="/assets/chenji-logo.png" mode="aspectFit" />
   <view class="title">尘迹</view>
   <view class="subtitle">管理学员和课时，记录每一次变化</view>

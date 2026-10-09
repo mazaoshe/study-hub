@@ -1,1 +1,3 @@
 /* pages/home/index.wxss */
+.theme-actions { display: flex; gap: 16rpx; }
+.theme-actions button { flex: 1; }

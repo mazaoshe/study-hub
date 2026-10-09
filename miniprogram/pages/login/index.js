@@ -2,8 +2,8 @@ const { request } = require('../../services/api');
 const { login, enter } = require('../../services/auth');
 
 Page({
-  data: { busy: false, identity: null, code: '', message: '' },
-  async onShow() {
+  data: { themeClass: (typeof wx.getStorageSync === 'function' && wx.getStorageSync('theme') === 'classic' ? 'theme-classic' : ''), busy: false, identity: null, code: '', message: '' },
+  async onShow() { this.setData({ themeClass: (typeof wx.getStorageSync === 'function' && wx.getStorageSync('theme') === 'classic' ? 'theme-classic' : '') });
     if (!wx.getStorageSync('session_token')) return;
     await this.run(async () => this.accept(await request('/me')));
   },

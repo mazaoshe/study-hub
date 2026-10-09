@@ -1,4 +1,4 @@
-<view class="page">
+<view class="page {{themeClass}}">
   <view class="title">{{kind === 'students' ? '全部学员' : '课程管理'}}</view>
   <view class="card">
     <view wx:if="{{kind === 'students'}}" class="status-tabs">

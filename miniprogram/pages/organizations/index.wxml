@@ -1,4 +1,4 @@
-<view class="page">
+<view class="page {{themeClass}}">
   <view class="title">机构管理</view>
   <view class="subtitle">创建机构，邀请管理员开始使用</view>
   <view class="card">

@@ -12,11 +12,11 @@ const consumption = createConsumePanel(async function () {
 });
 return {
   ...consumption.methods,
-  data: { ...consumption.data, searchFocus: false, kind: 'students', title: '学员', items: [], searchInput: '', search: '', archived: false, page: 1, hasMore: false, total: null, loaded: false,
+  data: { themeClass: (typeof wx.getStorageSync === 'function' && wx.getStorageSync('theme') === 'classic' ? 'theme-classic' : ''), ...consumption.data, searchFocus: false, kind: 'students', title: '学员', items: [], searchInput: '', search: '', archived: false, page: 1, hasMore: false, total: null, loaded: false,
     sortIndex: 0, sortLabels: ['姓名 A–Z', '剩余课时从少到多', '最近新增'],
     editing: false, editId: '', name: '', phone: '', remark: '', remarkLimit: 500, busy: false, message: '' },
   onLoad(options = {}) { const kind = fixedKind || (options.kind === 'courses' ? 'courses' : 'students'); this.setData({ kind, title: kind === 'courses' ? '课程' : '学员', archived: false }); },
-  onShow() { return run(this, () => this.data.loaded ? this.refresh() : this.load(1)); },
+  onShow() { this.setData({ themeClass: (typeof wx.getStorageSync === 'function' && wx.getStorageSync('theme') === 'classic' ? 'theme-classic' : '') }); return run(this, () => this.data.loaded ? this.refresh() : this.load(1)); },
   onPageScroll(e) { this.scrollTop = e.scrollTop; },
   async fetchPage(page) {
     const filter = this.data.kind === 'students' ? '&sort=' + (this.data.archived ? 'archived' : ['name', 'balance', 'newest'][this.data.sortIndex]) + '&status=' + (this.data.archived ? 'ARCHIVED' : 'ACTIVE') : '&archived=' + (this.data.archived ? 1 : 0);

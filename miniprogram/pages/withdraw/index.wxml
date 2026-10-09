@@ -1,4 +1,4 @@
-<view class="page">
+<view class="page {{themeClass}}">
   <view class="title">退学结清</view>
   <view wx:if="{{done}}" class="card">
     <view class="label">{{preview.student.name}} · 已退学结清</view>

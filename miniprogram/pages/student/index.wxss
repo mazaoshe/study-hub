@@ -1,6 +1,12 @@
-.package-tabs { display: flex; gap: 8rpx; background: #eaf0fa; padding: 6rpx; margin: 24rpx 0; border-radius: 16rpx; }
-.package-tab { flex: 1; margin: 0; padding: 8rpx; font-size: 26rpx; line-height: 1.8; background: transparent; color: #68768c; }
-.package-tab.selected { background: #fff; color: #2865da; font-weight: 600; }
+.package-tabs { display: flex; gap: 8rpx; background: #eee4d8; padding: 6rpx; margin: 24rpx 0; border-radius: 16rpx; }
+.package-tab { flex: 1; margin: 0; padding: 8rpx; font-size: 26rpx; line-height: 1.8; background: transparent; color: #766e67; }
+.package-tab.selected { background: #fffdf8; color: #a9322b; font-weight: 600; }
 .package-total { font-size: 28rpx; padding-bottom: 12rpx; }
-.balances { color: #68768c; font-size: 26rpx; }
+.balances { color: #766e67; font-size: 26rpx; }
 .balances .number { font-size: 30rpx; }
+
+/* 经典蓝主题覆盖 */
+.page.theme-classic .package-tabs { display: flex; gap: 8rpx; background: #eaf0fa; padding: 6rpx; margin: 24rpx 0; border-radius: 16rpx; }
+.page.theme-classic .package-tab { flex: 1; margin: 0; padding: 8rpx; font-size: 26rpx; line-height: 1.8; background: transparent; color: #68768c; }
+.page.theme-classic .package-tab.selected { background: #ffffff; color: #2865da; font-weight: 600; }
+.page.theme-classic .balances { color: #68768c; font-size: 26rpx; }

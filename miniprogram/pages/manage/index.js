@@ -2,8 +2,8 @@ const { request } = require('../../services/api');
 const { enter, handleError } = require('../../services/auth');
 
 Page({
-  data: { identity: null, admins: [], busy: false, message: '', inviteCode: '', exportPath: '', exportName: '' },
-  onShow() {
+  data: { themeClass: (typeof wx.getStorageSync === 'function' && wx.getStorageSync('theme') === 'classic' ? 'theme-classic' : ''), identity: null, admins: [], busy: false, message: '', inviteCode: '', exportPath: '', exportName: '' },
+  onShow() { this.setData({ themeClass: (typeof wx.getStorageSync === 'function' && wx.getStorageSync('theme') === 'classic' ? 'theme-classic' : '') });
     this.run(async () => {
       const identity = await request('/me');
       if (identity.role !== 'ORG_ADMIN') { enter(identity); return; }
@@ -25,6 +25,15 @@ Page({
     });
   },
   copyInvite() { wx.setClipboardData({ data: this.data.inviteCode }); },
+  setTheme(theme) {
+    const app = getApp();
+    app.applyTheme(theme);
+    this.setData({ themeClass: app.getThemeClass() });
+    wx.showToast({ title: theme === 'classic' ? '已切换为经典蓝' : '已切换为尘迹主题', icon: 'none' });
+
+  },
+  useInkTheme() { this.setTheme('ink'); },
+  useClassicTheme() { this.setTheme('classic'); },
   courses() { wx.navigateTo({ url: '/pages/catalog/index?kind=courses' }); },
   records() { wx.navigateTo({ url: '/pages/records/index' }); },
   exportData(event) {

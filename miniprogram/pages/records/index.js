@@ -1,9 +1,9 @@
 const { request } = require('../../services/api');
 const { run, recordViews } = require('../../services/ui');
 Page({
-  data: { items: [], page: 1, hasMore: false, busy: false, message: '', legacy: false },
+  data: { themeClass: (typeof wx.getStorageSync === 'function' && wx.getStorageSync('theme') === 'classic' ? 'theme-classic' : ''), items: [], page: 1, hasMore: false, busy: false, message: '', legacy: false },
   onLoad(options) { this.packageId = options.package_id || ''; this.setData({ legacy: options.kind === 'legacy' }); },
-  onShow() { run(this, () => this.load(1)); },
+  onShow() { this.setData({ themeClass: (typeof wx.getStorageSync === 'function' && wx.getStorageSync('theme') === 'classic' ? 'theme-classic' : '') }); run(this, () => this.load(1)); },
   async load(page) {
     const result = await request((this.data.legacy ? '/legacy-records' : '/lesson-records') + '?page=' + page + (this.packageId ? '&package_id=' + encodeURIComponent(this.packageId) : ''));
     const items = this.data.legacy ? result.items.map(item => ({ ...item,

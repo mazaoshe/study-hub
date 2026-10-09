@@ -1,14 +1,14 @@
 const { request } = require('../../services/api');
 const { run, allCourses } = require('../../services/ui');
 Page({
-  data: { student: null, packages: [], visiblePackages: [], packageStatus: 'ACTIVE', activeCount: 0, archivedCount: 0, loaded: false, courses: [], selected: [], creating: false, busy: false, message: '', actionLabel: '' },
+  data: { themeClass: (typeof wx.getStorageSync === 'function' && wx.getStorageSync('theme') === 'classic' ? 'theme-classic' : ''), student: null, packages: [], visiblePackages: [], packageStatus: 'ACTIVE', activeCount: 0, archivedCount: 0, loaded: false, courses: [], selected: [], creating: false, busy: false, message: '', actionLabel: '' },
   onLoad(options) {
     this.id = options.id;
     this.initialCreate = options.create === '1';
     this.action = ['recharge', 'consume'].includes(options.action) ? options.action : '';
     this.setData({ actionLabel: this.action === 'recharge' ? '充值' : this.action === 'consume' ? '消课' : '' });
   },
-  onShow() { return run(this, async () => {
+  onShow() { this.setData({ themeClass: (typeof wx.getStorageSync === 'function' && wx.getStorageSync('theme') === 'classic' ? 'theme-classic' : '') }); return run(this, async () => {
     await this.load();
     if ((this.initialCreate || this.data.creating) && this.data.student.status === 'ACTIVE') {
       const courses = await allCourses();

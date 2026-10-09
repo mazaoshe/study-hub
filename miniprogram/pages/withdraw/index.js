@@ -2,9 +2,9 @@ const { request } = require('../../services/api');
 const { run, confirm } = require('../../services/ui');
 const withdrawal = require('../../services/withdrawal');
 Page({
-  data: { preview: null, confirmed: false, remark: '', busy: false, message: '', retrying: false, done: false },
+  data: { themeClass: (typeof wx.getStorageSync === 'function' && wx.getStorageSync('theme') === 'classic' ? 'theme-classic' : ''), preview: null, confirmed: false, remark: '', busy: false, message: '', retrying: false, done: false },
   onLoad(options) { this.id = options.id; },
-  onShow() { if (!this.data.done) return run(this, () => this.load()); },
+  onShow() { this.setData({ themeClass: (typeof wx.getStorageSync === 'function' && wx.getStorageSync('theme') === 'classic' ? 'theme-classic' : '') }); if (!this.data.done) return run(this, () => this.load()); },
   async load() {
     const identity = await request('/me'); this.userId = identity.user.id;
     const intent = withdrawal.pending(this.userId, this.id);

@@ -2,10 +2,10 @@ const { send } = require('../../services/ledger');
 const { request } = require('../../services/api');
 const { run, confirm, allCourses, recordViews } = require('../../services/ui');
 Page({
-  data: { package: null, records: [], hasMore: false, page: 1, mode: '', paid: '', gift: '', hours: '', remark: '',
+  data: { themeClass: (typeof wx.getStorageSync === 'function' && wx.getStorageSync('theme') === 'classic' ? 'theme-classic' : ''), package: null, records: [], hasMore: false, page: 1, mode: '', paid: '', gift: '', hours: '', remark: '',
     courseIndex: 0, activeCourses: [], editCourses: [], selected: [], name: '', busy: false, message: '' },
   onLoad(options) { this.id = options.id; this.initialAction = ['recharge', 'consume'].includes(options.action) ? options.action : ''; },
-  onShow() { run(this, async () => {
+  onShow() { this.setData({ themeClass: (typeof wx.getStorageSync === 'function' && wx.getStorageSync('theme') === 'classic' ? 'theme-classic' : '') }); run(this, async () => {
     const me = await request('/me'); this.userId = me.user.id; await this.load();
     if (this.initialAction && this.data.package.status === 'ACTIVE' && this.data.package.student_status === 'ACTIVE') {
       if (this.initialAction === 'consume' && !this.data.activeCourses.length) this.setData({ message: '该课时包暂无正常课程可供消课' });
