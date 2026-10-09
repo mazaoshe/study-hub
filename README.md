@@ -6,6 +6,16 @@
 
 > 文档中的 AppID、域名、Secret、账号和数据库 ID 都必须替换为部署者自己的值；仓库不提供可直接使用的生产配置。
 
+## 界面截图
+
+| 首页 | 学员列表 | 消课 |
+| --- | --- | --- |
+| ![课时工具首页](docs/images/screenshots/home.png) | ![学员列表](docs/images/screenshots/students.png) | ![消课表单](docs/images/screenshots/consume.png) |
+
+| 管理 | 课程管理 | |
+| --- | --- | --- |
+| ![管理页面](docs/images/screenshots/manage.png) | ![课程管理](docs/images/screenshots/courses.png) | |
+
 ## 快速开始
 
 ### 本地开发
